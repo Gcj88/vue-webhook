@@ -1,5 +1,9 @@
-const { sign } = require('crypto');
 let http = require('http');
+let crypto = require('crypto');
+let SECRET = '123456';
+function sign(body){
+    return 'sha1='+crypto.createHmac('sha1',SECRET).update(body).digest('hex');
+}
 let server = http.createServer(function(req,res){
     console.log(req.method,req.url);
     if(req.method == 'POST' && req.url == '/webhook'){
