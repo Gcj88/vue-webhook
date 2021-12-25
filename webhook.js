@@ -30,7 +30,7 @@ let server = http.createServer(function(req,res){
                     buffers.push(buffer);
                 });
                 child.stdout.on('end',function(buffer){
-                    let logs = Buffer.concat(buffers);
+                    let logs = Buffer.concat(buffer);
                     console.log(logs);
                 });
             }
