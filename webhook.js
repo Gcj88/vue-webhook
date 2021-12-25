@@ -24,13 +24,13 @@ let server = http.createServer(function(req,res){
             res.end(JSON.stringify({ok:true}));
             if(event == 'push'){
                 let payload = JSON.parse(body);
-                let child = spawn('sh',['./${payload.repositry,name}.sh']);
-                let buffers2 = [];
+                let child = spawn('sh',[`./${payload.repositry,name}.sh`]);
+                let buffers = [];
                 child.stdout.on('data',function(buffer){
-                    buffers2.push(buffer);
+                    buffers.push(buffer);
                 });
                 child.stdout.on('end',function(buffer){
-                    let logs = Buffer.concat(buffers2);
+                    let logs = Buffer.concat(buffers);
                     console.log(logs);
                 });
             }
