@@ -13,7 +13,7 @@ let server = http.createServer(function(req,res){
             buffers.push(buffer);
         });
         req.on('end',function(buffer){
-            let body = Buffer.concat(buffer);
+            let body = Buffer.concat(buffers);
             let event = req.headers['x-github-event'];//event=push
             //git请求过来时既传递请求体body，又传递签名signature，需要验证签名是否正确
             let signature = req.headers['x-hub-signature'];
@@ -25,12 +25,12 @@ let server = http.createServer(function(req,res){
             if(event == 'push'){
                 let payload = JSON.parse(body);
                 let child = spawn('sh',[`./${payload.repositry,name}.sh`]);
-                let buffers = [];
+                let buffers2 = [];
                 child.stdout.on('data',function(buffer){
-                    buffers.push(buffer);
+                    buffers2.push(buffer);
                 });
                 child.stdout.on('end',function(buffer){
-                    let logs = Buffer.concat(buffer);
+                    let logs = Buffer.concat(buffers2);
                     console.log(logs);
                 });
             }
